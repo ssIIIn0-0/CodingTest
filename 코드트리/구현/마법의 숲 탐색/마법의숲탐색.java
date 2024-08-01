@@ -44,7 +44,7 @@ public class Main {
         System.out.println(ans);
     }
 
-    // 출구 위치
+    // 출구 위치 (골렘 몸 내에서)
     private static int[] getExit(int x, int y, int d) {
         if (d == 0) {
             return new int[]{x - 1, y};
@@ -57,11 +57,12 @@ public class Main {
         }
     }
 
+    // 주어진 좌표가 범위 내에 있는지
     private static boolean inBoard(int nx, int ny) {
         return nx >= 0 && nx < n && ny >= 0 && ny < m;
     }
 
-    // 골렘이 어떤 좌표로 이동 가능한 상태인지 확인
+    // 골렘이 주어진 좌표로 이동 가능한 상태인지
     private static boolean check(int x, int y) {
         if (!inBoard(x, y)) { // 좌표가 보드 밖에 위치하면
             if (x < n && y >= 0 && y < m) { // 좌표가 위쪽이 뚫린 바구니 같은 공간에 있는지
@@ -75,7 +76,7 @@ public class Main {
         return false;
     }
 
-    // 골렘 이동
+    // 골렘 이동, 최종 위치 반환
     private static int[] move(int c, int d, int no) {
         int x = -2;
         int y = c; // 골렘 내 중앙의 정령 위치. 보드 맨 위에서 두 칸 위인 x==-2 지점부터 내려온다.
@@ -95,7 +96,7 @@ public class Main {
                 x += 1;
                 y += 1;
                 d = (d + 1) % 4;
-            } else {
+            } else {    // 골렘의 일부가 범위 밖으로 나오면 이동 중단
                 break;
             }
         }
@@ -113,7 +114,7 @@ public class Main {
         }
     }
 
-    // 정령 이동
+    // 정령이 이동할 수 있는 최대위치 탐색 -> 점수 계산
     private static int bfs(int sx, int sy, int no) {
         List<Integer> cand = new ArrayList<>();
         Queue<int[]> q = new LinkedList<>();
